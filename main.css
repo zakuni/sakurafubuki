@@ -1,0 +1,10 @@
+body {
+  background-color: #00aacc;
+}
+
+#sakura {
+  width: 25px;
+  height: 20px;
+  background: #ffdddd;
+  border-radius: 80% 30%;
+}
