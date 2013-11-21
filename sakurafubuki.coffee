@@ -1,9 +1,22 @@
 flutterDown = () ->
-  offset = $("#sakura").offset()
-  top = if offset.top+1 > $(window).height() then 0 else offset.top+1
-  left = if offset.left-1 < 0 then $(window).width() else offset.left-1
+  $(".sakura").each((index, elem)->
+    offset = $(elem).offset()
+    top = if offset.top+1 > $(window).height() then 0 else offset.top+1
+    left = if offset.left-0.1 < 0 then $(window).width() else offset.left-0.1
 
-  $("#sakura").offset({top: top, left: left})
+    $(elem).offset({top: top, left: left})
+  )
   requestAnimationFrame(flutterDown)
 
-requestAnimationFrame(flutterDown)
+appendSakura = () ->
+  $('<div class="sakura">')
+    .appendTo($('body'))
+    .css(
+      position: "relative",
+      top: Math.floor(Math.random() * $(window).height()),
+      left: Math.floor(Math.random() * $(window).width())
+    )
+
+$ ->
+  appendSakura() for [1..10]
+  requestAnimationFrame(flutterDown)
