@@ -8,4 +8,15 @@ flutterDown = () ->
   )
   requestAnimationFrame(flutterDown)
 
-requestAnimationFrame(flutterDown)
+appendSakura = () ->
+  $('<div class="sakura">')
+    .appendTo($('body'))
+    .css(
+      position: "relative",
+      top: Math.floor(Math.random() * $(window).height()),
+      left: Math.floor(Math.random() * $(window).width())
+    )
+
+$ ->
+  appendSakura() for [1..10]
+  requestAnimationFrame(flutterDown)
