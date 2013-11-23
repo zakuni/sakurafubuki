@@ -1,22 +1,33 @@
-flutterDown = () ->
-  $(".sakura").each((index, elem)->
-    offset = $(elem).offset()
-    top = if offset.top+1 > $(window).height() then 0 else offset.top+1
-    left = if offset.left-0.1 < 0 then Math.floor(Math.random()*$(window).width()) else offset.left-0.1
+flutterDown = (sakuras) ->
+  updatePosition(sakura) for sakura in sakuras
+  requestAnimationFrame ->
+    flutterDown(sakuras)
 
-    $(elem).offset({top: top, left: left})
-  )
-  requestAnimationFrame(flutterDown)
+updatePosition = (sakura) ->
+  offset = sakura.elem.offset()
+  nextX = offset.left - sakura.speedX
+  nextY = offset.top + sakura.speedY
+  if nextY > $(window).height() or nextX < 0
+    top = 0
+    left = Math.floor(Math.random()*$(window).width())
+  else
+    top = nextY
+    left = nextX
 
-appendSakura = () ->
-  $('<div class="sakura">')
-    .appendTo($('body'))
-    .css(
-      position: "relative",
-      top: Math.floor(Math.random() * $(window).height()),
-      left: Math.floor(Math.random() * $(window).width())
-    )
+  sakura.elem.offset({top: top, left: left})
+
+appendSakura = ->
+  sakura = 
+    elem : $('<div class="sakura">')
+      .appendTo $('body')
+      .css
+        position: "relative",
+        top: Math.random() * $(window).height(),
+        left: Math.random() * $(window).width()
+    speedX : Math.random()
+    speedY : Math.random()*2
 
 $ ->
-  appendSakura() for [1..10]
-  requestAnimationFrame(flutterDown)
+  sakuras = (appendSakura() for [1..20])
+  requestAnimationFrame ->
+    flutterDown(sakuras)
