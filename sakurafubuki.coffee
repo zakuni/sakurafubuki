@@ -4,24 +4,26 @@ flutterDown = (sakuras) ->
     flutterDown(sakuras)
 
 updatePosition = (sakura) ->
-  offset = sakura.offset()
-  if offset.top+1 > $(window).height() or offset.left-0.1 < 0
+  offset = sakura.elem.offset()
+  if offset.top+sakura.speedY > $(window).height() or offset.left-sakura.speedX < 0
     top = 0
     left = Math.floor(Math.random()*$(window).width())
   else
-    top = offset.top+1
-    left = offset.left-0.1
+    top = offset.top+sakura.speedY
+    left = offset.left-sakura.speedX
 
-  sakura.offset({top: top, left: left})
+  sakura.elem.offset({top: top, left: left})
 
 appendSakura = ->
-  $('<div class="sakura">')
-    .appendTo($('body'))
-    .css(
-      position: "relative",
-      top: Math.floor(Math.random() * $(window).height()),
-      left: Math.floor(Math.random() * $(window).width())
-    )
+  sakura = 
+    elem : $('<div class="sakura">')
+      .appendTo $('body')
+      .css
+        position: "relative",
+        top: Math.random() * $(window).height(),
+        left: Math.random() * $(window).width()
+    speedX : Math.random()
+    speedY : Math.random()*2
 
 $ ->
   sakuras = (appendSakura() for [1..10])

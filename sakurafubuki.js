@@ -15,26 +15,31 @@
 
   updatePosition = function(sakura) {
     var left, offset, top;
-    offset = sakura.offset();
-    if (offset.top + 1 > $(window).height() || offset.left - 0.1 < 0) {
+    offset = sakura.elem.offset();
+    if (offset.top + sakura.speedY > $(window).height() || offset.left - sakura.speedX < 0) {
       top = 0;
       left = Math.floor(Math.random() * $(window).width());
     } else {
-      top = offset.top + 1;
-      left = offset.left - 0.1;
+      top = offset.top + sakura.speedY;
+      left = offset.left - sakura.speedX;
     }
-    return sakura.offset({
+    return sakura.elem.offset({
       top: top,
       left: left
     });
   };
 
   appendSakura = function() {
-    return $('<div class="sakura">').appendTo($('body')).css({
-      position: "relative",
-      top: Math.floor(Math.random() * $(window).height()),
-      left: Math.floor(Math.random() * $(window).width())
-    });
+    var sakura;
+    return sakura = {
+      elem: $('<div class="sakura">').appendTo($('body').css({
+        position: "relative",
+        top: Math.random() * $(window).height(),
+        left: Math.random() * $(window).width()
+      })),
+      speedX: Math.random(),
+      speedY: Math.random() * 2
+    };
   };
 
   $(function() {
