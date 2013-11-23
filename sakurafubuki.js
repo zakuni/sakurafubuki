@@ -12,8 +12,13 @@
   updatePosition = function(elem) {
     var left, offset, top;
     offset = $(elem).offset();
-    top = offset.top + 1 > $(window).height() ? 0 : offset.top + 1;
-    left = offset.left - 0.1 < 0 ? Math.floor(Math.random() * $(window).width()) : offset.left - 0.1;
+    if (offset.top + 1 > $(window).height() || offset.left - 0.1 < 0) {
+      top = 0;
+      left = Math.floor(Math.random() * $(window).width());
+    } else {
+      top = offset.top + 1;
+      left = offset.left - 0.1;
+    }
     return $(elem).offset({
       top: top,
       left: left
