@@ -5,12 +5,14 @@ flutterDown = (sakuras) ->
 
 updatePosition = (sakura) ->
   offset = sakura.elem.offset()
-  if offset.top+sakura.speedY > $(window).height() or offset.left-sakura.speedX < 0
+  nextX = offset.left - sakura.speedX
+  nextY = offset.top + sakura.speedY
+  if nextY > $(window).height() or nextX < 0
     top = 0
     left = Math.floor(Math.random()*$(window).width())
   else
-    top = offset.top+sakura.speedY
-    left = offset.left-sakura.speedX
+    top = nextY
+    left = nextX
 
   sakura.elem.offset({top: top, left: left})
 
@@ -26,6 +28,6 @@ appendSakura = ->
     speedY : Math.random()*2
 
 $ ->
-  sakuras = (appendSakura() for [1..10])
+  sakuras = (appendSakura() for [1..20])
   requestAnimationFrame ->
     flutterDown(sakuras)

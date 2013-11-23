@@ -14,14 +14,16 @@
   };
 
   updatePosition = function(sakura) {
-    var left, offset, top;
+    var left, nextX, nextY, offset, top;
     offset = sakura.elem.offset();
-    if (offset.top + sakura.speedY > $(window).height() || offset.left - sakura.speedX < 0) {
+    nextX = offset.left - sakura.speedX;
+    nextY = offset.top + sakura.speedY;
+    if (nextY > $(window).height() || nextX < 0) {
       top = 0;
       left = Math.floor(Math.random() * $(window).width());
     } else {
-      top = offset.top + sakura.speedY;
-      left = offset.left - sakura.speedX;
+      top = nextY;
+      left = nextX;
     }
     return sakura.elem.offset({
       top: top,
@@ -47,7 +49,7 @@
     sakuras = (function() {
       var _i, _results;
       _results = [];
-      for (_i = 1; _i <= 10; _i++) {
+      for (_i = 1; _i <= 20; _i++) {
         _results.push(appendSakura());
       }
       return _results;
