@@ -1,11 +1,10 @@
-flutterDown = () ->
-  $(".sakura").each((index, elem)->
-    updatePosition(elem)
-  )
-  requestAnimationFrame(flutterDown)
+flutterDown = (sakuras) ->
+  updatePosition(sakura) for sakura in sakuras
+  requestAnimationFrame ->
+    flutterDown(sakuras)
 
-updatePosition = (elem) ->
-  offset = $(elem).offset()
+updatePosition = (sakura) ->
+  offset = sakura.offset()
   if offset.top+1 > $(window).height() or offset.left-0.1 < 0
     top = 0
     left = Math.floor(Math.random()*$(window).width())
@@ -13,9 +12,9 @@ updatePosition = (elem) ->
     top = offset.top+1
     left = offset.left-0.1
 
-  $(elem).offset({top: top, left: left})
+  sakura.offset({top: top, left: left})
 
-appendSakura = () ->
+appendSakura = ->
   $('<div class="sakura">')
     .appendTo($('body'))
     .css(
@@ -25,5 +24,6 @@ appendSakura = () ->
     )
 
 $ ->
-  appendSakura() for [1..10]
-  requestAnimationFrame(flutterDown)
+  sakuras = (appendSakura() for [1..10])
+  requestAnimationFrame ->
+    flutterDown(sakuras)

@@ -2,16 +2,20 @@
 (function() {
   var appendSakura, flutterDown, updatePosition;
 
-  flutterDown = function() {
-    $(".sakura").each(function(index, elem) {
-      return updatePosition(elem);
+  flutterDown = function(sakuras) {
+    var sakura, _i, _len;
+    for (_i = 0, _len = sakuras.length; _i < _len; _i++) {
+      sakura = sakuras[_i];
+      updatePosition(sakura);
+    }
+    return requestAnimationFrame(function() {
+      return flutterDown(sakuras);
     });
-    return requestAnimationFrame(flutterDown);
   };
 
-  updatePosition = function(elem) {
+  updatePosition = function(sakura) {
     var left, offset, top;
-    offset = $(elem).offset();
+    offset = sakura.offset();
     if (offset.top + 1 > $(window).height() || offset.left - 0.1 < 0) {
       top = 0;
       left = Math.floor(Math.random() * $(window).width());
@@ -19,7 +23,7 @@
       top = offset.top + 1;
       left = offset.left - 0.1;
     }
-    return $(elem).offset({
+    return sakura.offset({
       top: top,
       left: left
     });
@@ -34,11 +38,18 @@
   };
 
   $(function() {
-    var _i;
-    for (_i = 1; _i <= 10; _i++) {
-      appendSakura();
-    }
-    return requestAnimationFrame(flutterDown);
+    var sakuras;
+    sakuras = (function() {
+      var _i, _results;
+      _results = [];
+      for (_i = 1; _i <= 10; _i++) {
+        _results.push(appendSakura());
+      }
+      return _results;
+    })();
+    return requestAnimationFrame(function() {
+      return flutterDown(sakuras);
+    });
   });
 
 }).call(this);
