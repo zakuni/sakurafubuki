@@ -34,7 +34,7 @@
   appendSakura = function() {
     var sakura;
     return sakura = {
-      elem: $('<div class="sakura">').appendTo($('body').css({
+      elem: $('<div class="sakura">').width(Math.random() * 10 + 15).height(Math.random() * 5 + 15).appendTo($('body').css({
         position: "relative",
         top: Math.random() * $(window).height(),
         left: Math.random() * $(window).width()
