@@ -34,11 +34,11 @@
   appendSakura = function() {
     var sakura;
     return sakura = {
-      elem: $('<div class="sakura">').width(Math.random() * 10 + 15).height(Math.random() * 5 + 15).appendTo($('body').css({
-        position: "relative",
+      elem: $('<div class="sakura">').width(Math.random() * 10 + 15).height(Math.random() * 5 + 15).css({
+        position: "absolute",
         top: Math.random() * $(window).height(),
         left: Math.random() * $(window).width()
-      })),
+      }).appendTo($('body')),
       speedX: Math.random(),
       speedY: Math.random() * 2
     };
@@ -60,3 +60,7 @@
   });
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=sakurafubuki.map
+*/
