@@ -14,5 +14,10 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zakuni/sakurafubuki/issues"
-  }
+  },
+  "devDependencies": {
+    "gulp-util": "~2.2.12",
+    "gulp": "~3.5.0",
+    "gulp-coffee": "~1.3.0"
+  }  
 }
