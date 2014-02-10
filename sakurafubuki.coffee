@@ -18,6 +18,8 @@ updatePosition = (sakura) ->
 
 appendSakura = ->
   sakura = 
+    speedX : Math.random()
+    speedY : Math.random()*2    
     elem : $('<div class="sakura">')
       .width(Math.random()*10+15)
       .height(Math.random()*5+15)
@@ -25,9 +27,7 @@ appendSakura = ->
         position: "absolute"
         top: Math.random() * $(window).height()
         left: Math.random() * $(window).width()
-      .appendTo $('body')        
-    speedX : Math.random()
-    speedY : Math.random()*2
+      .appendTo $('body')
 
 $ ->
   sakuras = (appendSakura() for [1..20])
